@@ -6,9 +6,17 @@
  * User Manual available at https://docs.gradle.org/5.4.1/userguide/java_library_plugin.html
  */
 
+buildscript {
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'maven'
+    id 'com.jfrog.bintray' version '1.7.3'
 }
 
 repositories {
@@ -28,11 +36,35 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-version = '0.1.0'
-
 jar {
     manifest {
         attributes('Implementation-Title': project.name,
                    'Implementation-Version': project.version)
     }
 }
+
+ext {
+    bintrayRepo = 'zck-libs-java'
+    bintrayName = 'demo'
+
+    publishedGroupId = 'work.zhangchengkai826.maven'
+    libraryName = 'demo'
+    artifact = 'demo'
+
+    libraryDescription = 'Demo.'
+
+    siteUrl = 'https://github.com/zhangchengkai826/zck-libs-java-demo'
+    gitUrl = 'https://github.com/zhangchengkai826/zck-libs-java-demo.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'zhangchengkai'
+    developerName = 'Chengkai Zhang'
+    developerEmail = 'zchengkai826@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'publish.gradle'
